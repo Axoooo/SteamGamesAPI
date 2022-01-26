@@ -1,12 +1,13 @@
 package ch.bbcag.steamgamesapi.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Developer {
@@ -18,6 +19,10 @@ public class Developer {
     @NotBlank(message = "name can't be blank")
     @NotNull(message = "name is required")
     private String name;
+
+    @ManyToMany(mappedBy = "linkedDeveloper")
+    @JsonBackReference
+    private Set<Game> linkedGames = new HashSet<>();
 
     public int getId() {
         return id;
@@ -33,6 +38,14 @@ public class Developer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Game> getLinkedGames() {
+        return linkedGames;
+    }
+
+    public void setLinkedGames(Set<Game> linkedGames) {
+        this.linkedGames = linkedGames;
     }
 
     @Override

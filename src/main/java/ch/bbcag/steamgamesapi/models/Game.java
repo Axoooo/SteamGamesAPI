@@ -26,18 +26,18 @@ public class Game {
 
     @NotBlank(message = "description_snippet can't be blank")
     @NotNull(message = "description_snippet is required")
-    private String description_snippet;
+    private String descriptionSnippet;
 
     @NotBlank(message = "overall_reviews can't be blank")
     @NotNull(message = "overall_reviews is required")
-    private String overall_reviews;
+    private String overallReviews;
 
     @NotNull(message = "release_date is required")
-    private Date release_date;
+    private Date releaseDate;
 
     @NotBlank(message = "game_details can't be blank")
     @NotNull(message = "game_details is required")
-    private String game_details;
+    private String gameDetails;
 
     @NotNull(message = "achievements is required")
     private int achievements;
@@ -50,12 +50,15 @@ public class Game {
     @NotNull(message = "comment is required")
     private String price;
 
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
+    private Set<Publisher> LinkedPublishers = new HashSet<>();
+
     @ManyToMany
     @JoinTable(
             name = "game_genre",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<Genre> linkedGenre = new HashSet<>();
+    private Set<Genre> linkedGenres = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -63,6 +66,11 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "developer_id"))
     private Set<Developer> linkedDeveloper = new HashSet<>();
+
+
+
+
+
 
     public int getId() {
         return id;
@@ -88,36 +96,36 @@ public class Game {
         this.name = name;
     }
 
-    public String getDescription_snippet() {
-        return description_snippet;
+    public String getDescriptionSnippet() {
+        return descriptionSnippet;
     }
 
-    public void setDescription_snippet(String description_snippet) {
-        this.description_snippet = description_snippet;
+    public void setDescriptionSnippet(String description_snippet) {
+        this.descriptionSnippet = description_snippet;
     }
 
-    public String getOverall_reviews() {
-        return overall_reviews;
+    public String getOverallReviews() {
+        return overallReviews;
     }
 
-    public void setOverall_reviews(String overall_reviews) {
-        this.overall_reviews = overall_reviews;
+    public void setOverallReviews(String overall_reviews) {
+        this.overallReviews = overall_reviews;
     }
 
-    public Date getRelease_date() {
-        return release_date;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(Date release_date) {
+        this.releaseDate = release_date;
     }
 
-    public String getGame_details() {
-        return game_details;
+    public String getGameDetails() {
+        return gameDetails;
     }
 
-    public void setGame_details(String game_details) {
-        this.game_details = game_details;
+    public void setGameDetails(String game_details) {
+        this.gameDetails = game_details;
     }
 
     public int getAchievements() {
@@ -144,12 +152,12 @@ public class Game {
         this.price = price;
     }
 
-    public Set<Genre> getLinkedGenre() {
-        return linkedGenre;
+    public Set<Genre> getLinkedGenres() {
+        return linkedGenres;
     }
 
-    public void setLinkedGenre(Set<Genre> linkedGenre) {
-        this.linkedGenre = linkedGenre;
+    public void setLinkedGenres(Set<Genre> linkedGenre) {
+        this.linkedGenres = linkedGenre;
     }
 
     public Set<Developer> getLinkedDeveloper() {
@@ -158,6 +166,14 @@ public class Game {
 
     public void setLinkedDeveloper(Set<Developer> linkedDeveloper) {
         this.linkedDeveloper = linkedDeveloper;
+    }
+
+    public Set<Publisher> getLinkdePublishers() {
+        return LinkedPublishers;
+    }
+
+    public void setLinkdePublishers(Set<Publisher> publishers) {
+        this.LinkedPublishers = publishers;
     }
 
     @Override
