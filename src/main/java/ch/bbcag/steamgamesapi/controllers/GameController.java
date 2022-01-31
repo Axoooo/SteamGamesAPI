@@ -51,7 +51,9 @@ public class GameController {
     @GetMapping
     public Iterable<Game> findByCategory(@Parameter(description = "Category to search by") @RequestParam(required = false) Category category,
                                          @Parameter(description = "Value to search the given category") @RequestParam(required = false) String value) {
-        if (category == null) return gameRepository.findAll();
+        if (category == null){
+            return gameRepository.findAll();
+        }
         return switch (category) {
             case NAME -> gameRepository.findByName(value);
             case REVIEWS -> gameRepository.findByReviews(value);
