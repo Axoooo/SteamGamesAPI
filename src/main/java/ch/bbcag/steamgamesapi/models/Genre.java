@@ -1,23 +1,29 @@
 package ch.bbcag.steamgamesapi.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "id is required")
+    @JsonBackReference
     private int id;
 
-    @NotBlank(message = "genre can't be blank")
-    @NotNull(message = "genre is required")
-    private String genre;
+    @NotBlank(message = "name can't be blank")
+    @NotNull(message = "name is required")
+    private String name;
+
+    @ManyToMany(mappedBy = "linkedGenres")
+    @JsonBackReference
+    private Set<Game> linkedGames = new HashSet<>();
 
     public int getId() {
         return id;
@@ -27,12 +33,20 @@ public class Genre {
         this.id = id;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getName() {
+        return name;
     }
 
-    public void setGenre(String name) {
-        this.genre = name;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Game> getLinkedGames() {
+        return linkedGames;
+    }
+
+    public void setLinkedGames(Set<Game> linkedGames) {
+        this.linkedGames = linkedGames;
     }
 
     @Override

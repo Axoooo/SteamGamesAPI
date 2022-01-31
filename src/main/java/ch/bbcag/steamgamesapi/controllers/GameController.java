@@ -50,27 +50,18 @@ public class GameController {
                     content = @Content)})
     @GetMapping
     public Iterable<Game> findByCategory(@Parameter(description = "Category to search by") @RequestParam(required = false) Category category,
-                                         @Parameter(description = "Value to search the given categroy") @RequestParam(required = false) String value) {
+                                         @Parameter(description = "Value to search the given category") @RequestParam(required = false) String value) {
         if (category == null) return gameRepository.findAll();
-        switch (category) {
-            case NAME:
-                return gameRepository.findByName(value);
-            case REVIEWS:
-                return gameRepository.findByReviews(value);
-            case RELEASE_DATE:
-                return gameRepository.findByReleaseDate(Date.valueOf(value));
-            case GAME_DETAILS:
-                return gameRepository.findByGameDetails(value);
-            case PRICE:
-                return gameRepository.findByPrice(value);
-            case PUBLISHER:
-                return gameRepository.findByPublisher(value);
-            case DEVELOPERS:
-                return gameRepository.findByDevelopers(value);
-            case GENRE:
-                return gameRepository.findByGenre(value);
-        }
-        return new ArrayList<>();
+        return switch (category) {
+            case NAME -> gameRepository.findByName(value);
+            case REVIEWS -> gameRepository.findByReviews(value);
+            case RELEASE_DATE -> gameRepository.findByReleaseDate(Date.valueOf(value));
+            case GAME_DETAILS -> gameRepository.findByGameDetails(value);
+            case PRICE -> gameRepository.findByPrice(value);
+            case PUBLISHER -> gameRepository.findByPublisher(value);
+            case DEVELOPERS -> gameRepository.findByDevelopers(value);
+            case GENRE -> gameRepository.findByGenre(value);
+        };
     }
 
     private enum Category {

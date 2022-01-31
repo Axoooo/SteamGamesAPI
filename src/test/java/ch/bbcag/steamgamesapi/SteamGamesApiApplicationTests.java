@@ -6,11 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.sql.Date;
 
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,56 +24,65 @@ class SteamGamesApiApplicationTests {
 
     @MockBean
     private GameRepository gameRepository;
-    private static final String JSON_BATTELTECH = """
-            [
-                {
-                    "id": 2,
-                    "url": "https://store.steampowered.com/app/637090/BATTLETECH/",
-                    "name": "BATTLETECH",
-                    "descriptionSnippet": "Take command of your own mercenary outfit of 'Mechs and the MechWarriors that pilot them, struggling to stay afloat as you find yourself drawn into a brutal interstellar civil war.",
-                    "overallReviews": "Mostly Positive,(7,030),- 71% of the 7,030 user reviews for this game are positive.",
-                    "releaseDate": "2018-04-24",
-                    "gameDetails": "Single-player,Multi-player,Online Multi-Player,Cross-Platform Multiplayer,Steam Achievements,Steam Trading Cards,Steam Cloud",
-                    "achievements": 128,
-                    "game_description": " About This Game  From original BATTLETECH/MechWarrior creator Jordan Weisman and the developers of the award-winning Shadowrun Returns series comes the next-generation of turn-based tactical 'Mech combat. The year is 3025 and the galaxy is trapped in a cycle of perpetual war, fought by noble houses with enormous, mechanized combat vehicles called BattleMechs. Take command of your own mercenary outfit of 'Mechs and the MechWarriors that pilot them, struggling to stay afloat as you find yourself drawn into a brutal interstellar civil war. Upgrade your starfaring base of operations, negotiate mercenary contracts with feudal lords, repair and maintain your stable of aging BattleMechs, and execute devastating combat tactics to defeat your enemies on the battlefield. COMMAND A SQUAD OF 'MECHS IN TURN-BASED COMBAT Deploy over 30 BattleMechs in a wide variety of combinations. Use terrain, positioning, weapon selection and special abilities to outmaneuver and outplay your opponents. MANAGE YOUR MERCENARY COMPANY Recruit, customize, and develop unique MechWarriors. Improve and customize your dropship. As a Mercenary, travel a wide stretch of space, taking missions and managing your reputation with a variety of noble houses and local factions. TAKE PART IN A DESPERATE CIVIL WAR Immerse yourself in the story of a violently deposed ruler, waging a brutal war to take back her throne with the support of your ragtag mercenary company. CUSTOMIZE YOUR 'MECHS Use your MechLab to maintain and upgrade your units, replacing damaged weapon systems with battlefield salvage taken from fallen foes. PVP MULTIPLAYER & SKIRMISH MODE Customize a Lance of 'Mechs and MechWarriors to go head-to-head with your friends, compete against opponents online, or jump into single-player skirmish mode to test your strategies against the AI. ",
-                    "price": "$39.99",
-                    "linkedGenres": [
-                        {
-                            "id": 1,
-                            "genre": "Action"
-                        },
-                        {
-                            "id": 2,
-                            "genre": "Strategy"
-                        },
-                        {
-                            "id": 3,
-                            "genre": "Adventure"
-                        }
-                    ],
-                    "linkedDeveloper": [
-                        {
-                            "id": 2,
-                            "name": "Harebrained Schemes"
-                        }
-                    ],
-                    "linkdePublishers": [
-                        {
-                            "id": 2,
-                            "name": "Paradox Interactive"
-                        }
-                    ]
-                }
-            ]
+    private static final String JSON_DOOM = """
+            {
+                     "id": 1,
+                     "url": "https://store.steampowered.com/app/379720/DOOM/",
+                     "name": "DOOM",
+                     "descriptionSnippet": "Now includes all three premium DLC packs (Unto the Evil, Hell Followed, and Bloodfall), maps, modes, and weapons, as well as all feature updates including Arcade Mode, Photo Mode, and the latest Update 6.66, which brings further multiplayer improvements as well as revamps multiplayer progression.",
+                     "overallReviews": "Very Positive,(42,550 Reviews)",
+                     "releaseDate": "2016-05-12",
+                     "achievements": 54,
+                     "game_description": " About This Game Developed by id software, the studio that pioneered the first-person shooter genre and created multiplayer Deathmatch, DOOM returns as a brutally fun and challenging modern-day shooter experience. Relentless demons, impossibly destructive guns, and fast, fluid movement provide the foundation for intense, first-person combat â€“ whether youâ€™re obliterating demon hordes through the depths of Hell in the single-player campaign, or competing against your friends in numerous multiplayer modes. Expand your gameplay experience using DOOM SnapMap game editor to easily create, play, and share your content with the world. STORY: Youâ€™ve come here for a reason. The Union Aerospace Corporationâ€™s massive research facility on Mars is overwhelmed by fierce and powerful demons, and only one person stands between their world and ours.  As the lone DOOM Marine, youâ€™ve been activated to do one thing â€“ kill them all. KEY FEATURES: A Relentless Campaign There is no taking cover or stopping to regenerate health as you beat back Hellâ€™s raging demon hordes.  Combine your arsenal of futuristic and iconic guns, upgrades, movement and an advanced melee system to knock-down, slash, stomp, crush, and blow apart demons in creative and violent ways. Return of id Multiplayer Dominate your opponents in DOOMâ€™s signature, fast-paced arena-style combat. In both classic and all-new game modes, annihilate your enemies utilizing your personal blend of skill, powerful weapons, vertical movement, and unique power-ups that allow you to play as a demon. Endless Possibilities DOOM SnapMap â€“ a powerful, but easy-to-use game and level editor â€“ allows for limitless gameplay experiences on every platform.  Without any previous experience or special expertise, any player can quickly and easily snap together and visually customize maps, add pre-defined or completely custom gameplay, and even edit game logic to create new modes.  Instantly play your creation, share it with a friend, or make it available to players around the world â€“ all in-game with the push of a button. ",
+                     "price": 19.99,
+                     "linkedGenres": [
+                         {
+                             "name": "Action"
+                         }
+                     ],
+                     "linkedGameDetails": [
+                         {
+                             "name": "Single-player"
+                         },
+                         {
+                             "name": "Multi-player"
+                         },
+                         {
+                             "name": "Co-op"
+                         },
+                         {
+                             "name": "Steam Achievements"
+                         },
+                         {
+                             "name": "Steam Trading Cards"
+                         },
+                         {
+                             "name": "Partial Controller Support"
+                         },
+                         {
+                             "name": "Steam Cloud"
+                         }
+                     ],
+                     "linkedDeveloper": [
+                         {
+                             "name": "id Software"
+                         }
+                     ],
+                     "linkedPublishers": [
+                         {
+                             "name": "Bethesda Softworks"
+                         }
+                     ]
+                 }
+             ]
             """;
 
     @Test
-    public void checkGet_whenNoParam_thenAllTagsAreReturned() throws Exception {
+    public void checkGet_WithPrice_thenAllGame() throws Exception {
 
-        fakeController.perform(get("/game?category=RELEASE_DATE&value=2018-04-24")
+        fakeController.perform(get("/game?category=PRICE&value=19")
                         .contentType("application/json"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1));
+                .andExpect(status().isOk());
     }
 
 }

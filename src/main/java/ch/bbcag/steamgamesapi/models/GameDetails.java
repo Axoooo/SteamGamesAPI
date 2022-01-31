@@ -5,10 +5,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-public class Publisher {
+public class GameDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "id is required")
@@ -19,10 +21,9 @@ public class Publisher {
     @NotNull(message = "name is required")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "game_id")
+    @ManyToMany(mappedBy = "linkedGameDetails")
     @JsonBackReference
-    private Game game;
+    private Set<Game> linkedGames = new HashSet<>();
 
     public int getId() {
         return id;
@@ -40,25 +41,24 @@ public class Publisher {
         this.name = name;
     }
 
-    public Game getGame() {
-        return game;
+    public Set<Game> getLinkedGames() {
+        return linkedGames;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setLinkedGames(Set<Game> linkedGames) {
+        this.linkedGames = linkedGames;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Publisher publisher = (Publisher) o;
-        return id == publisher.id;
+        GameDetails genres = (GameDetails) o;
+        return id == genres.id;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
-
     }
 }

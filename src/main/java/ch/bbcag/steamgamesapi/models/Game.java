@@ -35,10 +35,6 @@ public class Game {
     @NotNull(message = "release_date is required")
     private Date releaseDate;
 
-    @NotBlank(message = "game_details can't be blank")
-    @NotNull(message = "game_details is required")
-    private String gameDetails;
-
     @NotNull(message = "achievements is required")
     private int achievements;
 
@@ -46,9 +42,8 @@ public class Game {
     @NotNull(message = "game_description is required")
     private String game_description;
 
-    @NotBlank(message = "comment can't be blank")
-    @NotNull(message = "comment is required")
-    private String price;
+    @NotNull(message = "number is required")
+    private Float price;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
     private Set<Publisher> LinkedPublishers = new HashSet<>();
@@ -62,15 +57,17 @@ public class Game {
 
     @ManyToMany
     @JoinTable(
+            name = "game_details_has_game",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_details_id"))
+    private Set<GameDetails> linkedGameDetails = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
             name = "game_developer",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "developer_id"))
     private Set<Developer> linkedDeveloper = new HashSet<>();
-
-
-
-
-
 
     public int getId() {
         return id;
@@ -120,14 +117,6 @@ public class Game {
         this.releaseDate = release_date;
     }
 
-    public String getGameDetails() {
-        return gameDetails;
-    }
-
-    public void setGameDetails(String game_details) {
-        this.gameDetails = game_details;
-    }
-
     public int getAchievements() {
         return achievements;
     }
@@ -144,11 +133,11 @@ public class Game {
         this.game_description = game_description;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -168,12 +157,20 @@ public class Game {
         this.linkedDeveloper = linkedDeveloper;
     }
 
-    public Set<Publisher> getLinkdePublishers() {
+    public Set<Publisher> getLinkedPublishers() {
         return LinkedPublishers;
     }
 
-    public void setLinkdePublishers(Set<Publisher> publishers) {
+    public void setLinkedPublishers(Set<Publisher> publishers) {
         this.LinkedPublishers = publishers;
+    }
+
+    public Set<GameDetails> getLinkedGameDetails() {
+        return linkedGameDetails;
+    }
+
+    public void setLinkedGameDetails(Set<GameDetails> linkedGameDetails) {
+        this.linkedGameDetails = linkedGameDetails;
     }
 
     @Override

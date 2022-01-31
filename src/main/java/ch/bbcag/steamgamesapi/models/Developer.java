@@ -14,6 +14,7 @@ public class Developer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "id is required")
+    @JsonBackReference
     private int id;
 
     @NotBlank(message = "name can't be blank")

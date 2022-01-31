@@ -12,13 +12,15 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
     @Query("SELECT i FROM Game i WHERE i.name LIKE CONCAT('%', :name, '%')")
     Iterable<Game> findByName(@Param("name") String name);
 
-    @Query("SELECT i FROM Game i WHERE i.price LIKE CONCAT('%', :price, '%')")
+    @Query("SELECT i FROM Game i WHERE i.price = :price")
     Iterable<Game> findByPrice(@Param("price") String price);
 
-    @Query("SELECT i FROM Game i WHERE i.gameDetails LIKE CONCAT('%', :gameDetails, '%')")
+    @Query("SELECT i FROM Game i " +
+            "JOIN i.linkedGameDetails gd " +
+            "WHERE gd.name LIKE CONCAT('%', :gameDetails, '%') ")
     Iterable<Game> findByGameDetails(@Param("gameDetails") String gameDetails);
 
-    @Query("SELECT i FROM Game i WHERE i.releaseDate =:releaseDate ")
+    @Query("SELECT i FROM Game i WHERE i.releaseDate = :releaseDate ")
     Iterable<Game> findByReleaseDate(@Param("releaseDate") Date releaseDate);
 
     @Query("SELECT i FROM Game i WHERE i.overallReviews LIKE CONCAT('%', :review, '%')")
@@ -36,7 +38,7 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
 
     @Query("SELECT i FROM Game i " +
             "JOIN i.linkedGenres g " +
-            "WHERE g.genre LIKE CONCAT('%', :genre, '%') ")
+            "WHERE g.name LIKE CONCAT('%', :genre, '%') ")
     Iterable<Game> findByGenre(@Param("genre") String genre);
 
 }
